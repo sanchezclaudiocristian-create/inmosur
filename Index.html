@@ -1,1 +1,75 @@
-hola mundo
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Inmosur - Alojamientos</title>
+        <!-- Tailwind CSS -->
+          <script src="https://cdn.tailwindcss.com"></script>
+          </head>
+          <body class="bg-gray-100 text-gray-800 font-sans min-h-screen flex flex-col">
+
+            <!-- Header -->
+              <header class="bg-blue-900 text-white shadow-md">
+                  <div class="max-w-6xl mx-auto px-4 py-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <div>
+                                <h1 id="hero-title" class="text-3xl font-bold tracking-tight">Inmosur</h1>
+                                        <p id="hero-subtitle" class="text-blue-200 text-sm mt-1">Alojamientos & Alquileres Temporarios</p>
+                                              </div>
+                                                    <a id="btn-whatsapp-header" href="#" target="_blank" class="bg-green-500 hover:bg-green-600 text-white px-5 py-2.5 rounded-full font-semibold text-sm flex items-center gap-2 shadow transition">
+                                                            <span>Contacto WhatsApp</span>
+                                                                  </a>
+                                                                      </div>
+                                                                        </header>
+
+                                                                          <!-- Presentación / Filtros -->
+                                                                            <main class="max-w-6xl mx-auto px-4 py-8 flex-1 w-full">
+                                                                                <section class="bg-white p-6 rounded-xl shadow-sm mb-8 border border-gray-200">
+                                                                                      <p id="hero-desc" class="text-gray-600 mb-6">Cargando información...</p>
+                                                                                            
+                                                                                                  <!-- Controles de Filtro -->
+                                                                                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-gray-100">
+                                                                                                                <div>
+                                                                                                                          <label class="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">Buscar por ubicación / título</label>
+                                                                                                                                    <input type="text" id="filter-text" placeholder="Ej: Bariloche, Cabaña..." class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                                                                                                                                            </div>
+                                                                                                                                                    <div>
+                                                                                                                                                              <label class="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">Huéspedes mínimos</label>
+                                                                                                                                                                        <select id="filter-capacity" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                                                                                                                                                                    <option value="0">Todos</option>
+                                                                                                                                                                                                <option value="2">2+ Personas</option>
+                                                                                                                                                                                                            <option value="4">4+ Personas</option>
+                                                                                                                                                                                                                      </select>
+                                                                                                                                                                                                                              </div>
+                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                        </section>
+
+                                                                                                                                                                                                                                            <!-- Grilla de Alojamientos -->
+                                                                                                                                                                                                                                                <div id="grid-alojamientos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                                                                                                                                                                                                                                      <!-- Se llena dinámicamente con app.js -->
+                                                                                                                                                                                                                                                          </div>
+                                                                                                                                                                                                                                                            </main>
+
+                                                                                                                                                                                                                                                              <!-- Footer -->
+                                                                                                                                                                                                                                                                <footer class="bg-gray-800 text-gray-400 text-center py-6 text-sm">
+                                                                                                                                                                                                                                                                    <p>&copy; Inmosur - Todos los derechos reservados.</p>
+                                                                                                                                                                                                                                                                      </footer>
+
+                                                                                                                                                                                                                                                                        <!-- Modal Galería -->
+                                                                                                                                                                                                                                                                          <div id="modal-galeria" class="fixed inset-0 bg-black/80 hidden z-50 flex items-center justify-center p-4">
+                                                                                                                                                                                                                                                                              <div class="bg-white rounded-xl max-w-2xl w-full p-4 relative flex flex-col max-h-[90vh]">
+                                                                                                                                                                                                                                                                                    <button id="close-modal" class="absolute top-3 right-3 text-gray-500 hover:text-black font-bold text-xl px-2">✕</button>
+                                                                                                                                                                                                                                                                                          <h3 id="modal-title" class="font-bold text-lg mb-3 pr-8">Galería</h3>
+                                                                                                                                                                                                                                                                                                <div class="flex-1 overflow-hidden flex items-center justify-center bg-gray-900 rounded-lg min-h-[300px]">
+                                                                                                                                                                                                                                                                                                        <img id="modal-img-active" src="" alt="Galería" class="max-h-[60vh] object-contain w-full" />
+                                                                                                                                                                                                                                                                                                              </div>
+                                                                                                                                                                                                                                                                                                                    <div id="modal-thumbnails" class="flex gap-2 mt-4 overflow-x-auto pb-2">
+                                                                                                                                                                                                                                                                                                                            <!-- Miniaturas cargadas dinámicamente -->
+                                                                                                                                                                                                                                                                                                                                  </div>
+                                                                                                                                                                                                                                                                                                                                      </div>
+                                                                                                                                                                                                                                                                                                                                        </div>
+
+                                                                                                                                                                                                                                                                                                                                          <script src="app.js"></script>
+                                                                                                                                                                                                                                                                                                                                          </body>
+                                                                                                                                                                                                                                                                                                                                          </html>
+                                                                                                                                                                                                                                                                                                                                          

@@ -1,0 +1,32 @@
+{
+      "institucional": {
+          "nombre": "Inmosur",
+              "subtitulo": "Alojamientos & Alquileres Temporarios",
+                  "descripcion": "Encuentra el lugar perfecto para tus vacaciones o estadías cortas.",
+                      "whatsapp": "5491112345678"
+                        },
+                          "propiedades": [
+                              {
+                                    "id": 1,
+                                          "titulo": "Cabaña Los Pinos",
+                                                "ubicacion": "Bariloche",
+                                                      "capacidad": 4,
+                                                            "precio_noche": 85,
+                                                                  "descripcion": "Hermosa cabaña de montaña rodeada de naturaleza con excelente vista y calidez.",
+                                                                        "servicios": ["WiFi", "Parrilla", "Estacionamiento", "Calefacción"],
+                                                                              "fotos": ["a.jpg", "b.jpg", "c.jpg"]
+                                                                                  },
+                                                                                      {
+                                                                                            "id": 2,
+                                                                                                  "titulo": "Departamento Centro Luminoso",
+                                                                                                        "ubicacion": "Mendoza",
+                                                                                                              "capacidad": 2,
+                                                                                                                    "precio_noche": 50,
+                                                                                                                          "descripcion": "Ubicado a pocas cuadras de la plaza principal y la zona gastronómica.",
+                                                                                                                                "servicios": ["WiFi", "Aire Acondicionado", "Cocina equipada"],
+                                                                                                                                      "fotos": ["a.jpg", "b.jpg"]
+                                                                                                                                          }
+                                                                                                                                            ]
+                                                                                                                                            }
+                                                                                                                                            
+}

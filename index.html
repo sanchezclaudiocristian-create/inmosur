@@ -27,8 +27,6 @@
   <!-- Header / Logotipo Oficial Adaptado -->
   <header class="bg-white text-brand-navy shadow-sm border-b border-slate-200 sticky top-0 z-40">
     <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-      
-      <!-- Marca Inmosur Andina -->
       <a href="#" class="flex flex-col">
         <span class="text-2xl sm:text-3xl font-black tracking-tight text-brand-navy lowercase leading-none">
           inmosur
@@ -37,16 +35,9 @@
           ANDINA
         </span>
       </a>
-
-      <!-- Botones Header -->
-      <div class="flex items-center gap-2">
-        <a id="link-instagram" href="#" target="_blank" class="bg-slate-100 hover:bg-slate-200 text-brand-navy p-2.5 rounded-xl text-xs font-semibold flex items-center justify-center transition" title="Instagram">
-          📸
-        </a>
-        <a id="btn-whatsapp-header" href="#" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm transition">
-          <span>WhatsApp</span>
-        </a>
-      </div>
+      <span class="text-xs font-medium text-slate-500 bg-slate-100 px-3 py-1.5 rounded-full hidden sm:inline-block">
+        Alquileres Temporarios
+      </span>
     </div>
   </header>
 
@@ -58,10 +49,7 @@
       <div class="space-y-3 max-w-2xl">
         <h2 id="inst-titulo" class="text-2xl sm:text-3xl font-extrabold text-brand-navy">Inmosur Andina</h2>
         <p id="inst-subtitulo" class="text-brand-terracotta font-semibold text-sm">Alojamientos & Alquileres Temporarios</p>
-        <p id="inst-desc" class="text-slate-600 text-sm leading-relaxed"></p>
-        <p id="inst-direccion" class="text-xs text-slate-500 font-medium flex items-center gap-1.5 pt-1">
-          📍 Cargando dirección...
-        </p>
+        <p id="inst-desc" class="text-slate-600 text-sm leading-relaxed">Especialistas en experiencias de hospedaje únicas. Desarrollos y propuestas inspiradas en el confort, la calidad constructiva y el entorno natural.</p>
       </div>
       <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center shrink-0 w-full lg:w-auto">
         <span class="block text-2xl font-black text-brand-navy" id="total-propiedades">5</span>
@@ -81,20 +69,51 @@
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="bg-brand-navy text-slate-300 text-center py-6 text-xs border-t border-slate-800 mt-12 space-y-2">
-    <p>&copy; 2026 Inmosur Andina. Todos los derechos reservados.</p>
-    <p class="text-[11px] text-slate-400">Calle Pública - Cañada Sur 3851, B° Manantiales I, Córdoba, Argentina</p>
+  <!-- Footer con Redes y Contacto -->
+  <footer class="bg-brand-navy text-slate-300 py-10 px-4 border-t border-slate-800 mt-12">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-xs">
+      
+      <!-- Columna 1: Info -->
+      <div class="space-y-2">
+        <h4 class="font-bold text-white text-sm uppercase tracking-wider">Inmosur Andina</h4>
+        <p class="text-slate-400">Estilo y confort en cada destino patagónico.</p>
+        <p class="text-slate-400 pt-2">📍 Calle Pública - Cañada Sur 3851, B° Manantiales I, Córdoba, Argentina</p>
+      </div>
+
+      <!-- Columna 2: Enlaces Redes -->
+      <div class="space-y-2">
+        <h4 class="font-bold text-white text-sm uppercase tracking-wider">Redes y Enlaces</h4>
+        <div class="flex flex-col space-y-2 pt-1">
+          <a href="https://www.instagram.com/inmosurcba" target="_blank" class="hover:text-white transition flex items-center gap-2">
+            📸 Instagram Oficial (@inmosurcba)
+          </a>
+          <a href="https://www.grupoedisur.com.ar/desarrollos/manantiales/lotes/el-paso/" target="_blank" class="hover:text-white transition flex items-center gap-2">
+            🌐 Grupo Edisur (Desarrollos Manantiales)
+          </a>
+        </div>
+      </div>
+
+      <!-- Columna 3: Contacto Directo -->
+      <div class="space-y-3">
+        <h4 class="font-bold text-white text-sm uppercase tracking-wider">Consultas y Reservas</h4>
+        <a id="footer-whatsapp" href="#" target="_blank" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 px-4 rounded-xl transition shadow">
+          💬 WhatsApp: +54 9 2616 25-3304
+        </a>
+      </div>
+
+    </div>
+    
+    <div class="max-w-6xl mx-auto pt-8 mt-8 border-t border-slate-800/60 text-center text-[11px] text-slate-400">
+      <p>&copy; 2026 Inmosur Andina. Todos los derechos reservados.</p>
+    </div>
   </footer>
 
   <!-- Modal de Detalle y Carrusel -->
   <div id="modal-detalle" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm hidden z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
     <div class="bg-white rounded-2xl max-w-xl w-full p-5 sm:p-6 relative flex flex-col max-h-[92vh] shadow-2xl my-auto">
       
-      <!-- Botón Cerrar Modal -->
       <button onclick="cerrarModal()" class="absolute top-4 right-4 bg-slate-100 hover:bg-slate-200 text-slate-600 w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm transition z-10">✕</button>
 
-      <!-- Carrusel de Imágenes -->
       <div class="relative bg-slate-900 rounded-xl overflow-hidden h-64 sm:h-72 shrink-0 mb-4 flex items-center justify-center shadow-inner">
         <img id="modal-img" src="" alt="Alojamiento" class="w-full h-full object-cover transition duration-300" />
         
@@ -106,7 +125,6 @@
         </div>
       </div>
 
-      <!-- Información del Modal -->
       <div class="flex-1 overflow-y-auto pr-1 space-y-4">
         <div class="flex justify-between items-start gap-2">
           <div>
@@ -131,7 +149,6 @@
         </div>
       </div>
 
-      <!-- Botón Realizar Reserva por WhatsApp -->
       <div class="pt-4 mt-4 border-t border-slate-100 shrink-0">
         <a id="modal-btn-whatsapp" href="#" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 px-4 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 shadow transition">
           <span>Realizar Reserva por WhatsApp</span>

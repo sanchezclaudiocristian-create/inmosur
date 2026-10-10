@@ -2,74 +2,136 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Inmosur - Alojamientos</title>
-        <!-- Tailwind CSS -->
-          <script src="https://cdn.tailwindcss.com"></script>
-          </head>
-          <body class="bg-gray-100 text-gray-800 font-sans min-h-screen flex flex-col">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inmosur Andina - Alojamientos Temporarios</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              navy: '#0B2545',      /* Azul institucional del logo */
+              terracotta: '#B46944',/* Terracota andino del logo */
+              light: '#F8FAFC'
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-brand-light text-slate-800 font-sans min-h-screen flex flex-col">
 
-            <!-- Header -->
-              <header class="bg-blue-900 text-white shadow-md">
-                  <div class="max-w-6xl mx-auto px-4 py-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-                        <div>
-                                <h1 id="hero-title" class="text-3xl font-bold tracking-tight">Inmosur</h1>
-                                        <p id="hero-subtitle" class="text-blue-200 text-sm mt-1">Alojamientos & Alquileres Temporarios</p>
-                                              </div>
-                                                    <a id="btn-whatsapp-header" href="#" target="_blank" class="bg-green-500 hover:bg-green-600 text-white px-5 py-2.5 rounded-full font-semibold text-sm flex items-center gap-2 shadow transition">
-                                                            <span>Contacto WhatsApp</span>
-                                                                  </a>
-                                                                      </div>
-                                                                        </header>
+  <!-- Header / Logotipo Oficial Adaptado -->
+  <header class="bg-white text-brand-navy shadow-sm border-b border-slate-200 sticky top-0 z-40">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+      
+      <!-- Marca Inmosur Andina -->
+      <a href="#" class="flex flex-col">
+        <span class="text-2xl sm:text-3xl font-black tracking-tight text-brand-navy lowercase leading-none">
+          inmosur
+        </span>
+        <span class="text-[10px] sm:text-xs font-bold tracking-[0.35em] text-brand-terracotta uppercase mt-1 self-end">
+          ANDINA
+        </span>
+      </a>
 
-                                                                          <!-- Presentación / Filtros -->
-                                                                            <main class="max-w-6xl mx-auto px-4 py-8 flex-1 w-full">
-                                                                                <section class="bg-white p-6 rounded-xl shadow-sm mb-8 border border-gray-200">
-                                                                                      <p id="hero-desc" class="text-gray-600 mb-6">Cargando información...</p>
-                                                                                            
-                                                                                                  <!-- Controles de Filtro -->
-                                                                                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-gray-100">
-                                                                                                                <div>
-                                                                                                                          <label class="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">Buscar por ubicación / título</label>
-                                                                                                                                    <input type="text" id="filter-text" placeholder="Ej: Bariloche, Cabaña..." class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                                                                                                                            </div>
-                                                                                                                                                    <div>
-                                                                                                                                                              <label class="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">Huéspedes mínimos</label>
-                                                                                                                                                                        <select id="filter-capacity" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                                                                                                                                                                    <option value="0">Todos</option>
-                                                                                                                                                                                                <option value="2">2+ Personas</option>
-                                                                                                                                                                                                            <option value="4">4+ Personas</option>
-                                                                                                                                                                                                                      </select>
-                                                                                                                                                                                                                              </div>
-                                                                                                                                                                                                                                    </div>
-                                                                                                                                                                                                                                        </section>
+      <!-- Botón de Contacto Rápido -->
+      <a id="btn-whatsapp-header" href="#" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm transition">
+        <span>Contacto WhatsApp</span>
+      </a>
+    </div>
+  </header>
 
-                                                                                                                                                                                                                                            <!-- Grilla de Alojamientos -->
-                                                                                                                                                                                                                                                <div id="grid-alojamientos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                                                                                                                                                                                                                                      <!-- Se llena dinámicamente con app.js -->
-                                                                                                                                                                                                                                                          </div>
-                                                                                                                                                                                                                                                            </main>
+  <!-- Contenido Principal -->
+  <main class="max-w-6xl mx-auto px-4 py-8 flex-1 w-full space-y-8">
+    
+    <!-- Sección Institucional -->
+    <section class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div class="space-y-2 max-w-2xl">
+        <h2 id="inst-titulo" class="text-2xl sm:text-3xl font-extrabold text-brand-navy">Inmosur Andina</h2>
+        <p id="inst-subtitulo" class="text-brand-terracotta font-semibold text-sm">Alojamientos & Alquileres Temporarios</p>
+        <p id="inst-desc" class="text-slate-600 text-sm leading-relaxed pt-1">Especialistas en experiencias de hospedaje únicas en los mejores destinos patagónicos.</p>
+      </div>
+      <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center shrink-0">
+        <span class="block text-2xl font-black text-brand-navy" id="total-propiedades">5</span>
+        <span class="text-[11px] font-semibold text-brand-terracotta uppercase tracking-wider">Propiedades Exclusivas</span>
+      </div>
+    </section>
 
-                                                                                                                                                                                                                                                              <!-- Footer -->
-                                                                                                                                                                                                                                                                <footer class="bg-gray-800 text-gray-400 text-center py-6 text-sm">
-                                                                                                                                                                                                                                                                    <p>&copy; Inmosur - Todos los derechos reservados.</p>
-                                                                                                                                                                                                                                                                      </footer>
+    <!-- Título de Sección -->
+    <div>
+      <h3 class="text-xl font-bold text-brand-navy">Nuestros Alojamientos</h3>
+      <p class="text-xs text-slate-500">Selecciona una tarjeta para ver el detalle completo, precios y galería de fotos.</p>
+    </div>
 
-                                                                                                                                                                                                                                                                        <!-- Modal Galería -->
-                                                                                                                                                                                                                                                                          <div id="modal-galeria" class="fixed inset-0 bg-black/80 hidden z-50 flex items-center justify-center p-4">
-                                                                                                                                                                                                                                                                              <div class="bg-white rounded-xl max-w-2xl w-full p-4 relative flex flex-col max-h-[90vh]">
-                                                                                                                                                                                                                                                                                    <button id="close-modal" class="absolute top-3 right-3 text-gray-500 hover:text-black font-bold text-xl px-2">✕</button>
-                                                                                                                                                                                                                                                                                          <h3 id="modal-title" class="font-bold text-lg mb-3 pr-8">Galería</h3>
-                                                                                                                                                                                                                                                                                                <div class="flex-1 overflow-hidden flex items-center justify-center bg-gray-900 rounded-lg min-h-[300px]">
-                                                                                                                                                                                                                                                                                                        <img id="modal-img-active" src="" alt="Galería" class="max-h-[60vh] object-contain w-full" />
-                                                                                                                                                                                                                                                                                                              </div>
-                                                                                                                                                                                                                                                                                                                    <div id="modal-thumbnails" class="flex gap-2 mt-4 overflow-x-auto pb-2">
-                                                                                                                                                                                                                                                                                                                            <!-- Miniaturas cargadas dinámicamente -->
-                                                                                                                                                                                                                                                                                                                                  </div>
-                                                                                                                                                                                                                                                                                                                                      </div>
-                                                                                                                                                                                                                                                                                                                                        </div>
+    <!-- Grilla de Tarjetas -->
+    <div id="grid-alojamientos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Se carga dinámicamente desde app.js -->
+    </div>
+  </main>
 
-                                                                                                                                                                                                                                                                                                                                          <script src="app.js"></script>
-                                                                                                                                                                                                                                                                                                                                          </body>
-                                                                                                                                                                                                                                                                                                                                          </html>
-                                                                                                                                                                                                                                                                                                                                          
+  <!-- Footer -->
+  <footer class="bg-brand-navy text-slate-300 text-center py-6 text-xs border-t border-slate-800 mt-12">
+    <p>&copy; 2026 Inmosur Andina. Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- Modal de Detalle y Carrusel -->
+  <div id="modal-detalle" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm hidden z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl max-w-xl w-full p-5 sm:p-6 relative flex flex-col max-h-[92vh] shadow-2xl my-auto">
+      
+      <!-- Botón Cerrar Modal -->
+      <button onclick="cerrarModal()" class="absolute top-4 right-4 bg-slate-100 hover:bg-slate-200 text-slate-600 w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm transition z-10">✕</button>
+
+      <!-- Carrusel de Imágenes -->
+      <div class="relative bg-slate-900 rounded-xl overflow-hidden h-64 sm:h-72 shrink-0 mb-4 flex items-center justify-center shadow-inner">
+        <img id="modal-img" src="" alt="Alojamiento" class="w-full h-full object-cover transition duration-300" />
+        
+        <button onclick="cambiarFoto(-1)" class="absolute left-2 bg-black/50 hover:bg-black/75 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm transition">❮</button>
+        <button onclick="cambiarFoto(1)" class="absolute right-2 bg-black/50 hover:bg-black/75 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm transition">❯</button>
+        
+        <div class="absolute bottom-2 right-2 bg-black/60 text-white text-[11px] px-2.5 py-1 rounded-md backdrop-blur-sm font-medium">
+          <span id="carousel-index">1</span> / <span id="carousel-total">1</span>
+        </div>
+      </div>
+
+      <!-- Información del Modal -->
+      <div class="flex-1 overflow-y-auto pr-1 space-y-4">
+        <div class="flex justify-between items-start gap-2">
+          <div>
+            <h3 id="modal-titulo" class="font-bold text-xl text-brand-navy"></h3>
+            <p id="modal-ubicacion" class="text-xs font-semibold text-slate-500 mt-0.5">📍 Ubicación</p>
+          </div>
+          <div class="text-right shrink-0">
+            <span id="modal-precio" class="text-lg font-black text-brand-terracotta">US$0</span>
+            <span class="block text-[10px] text-slate-400 uppercase tracking-wide">por día</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 text-xs font-medium text-slate-600 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+          <span>👤 Capacidad máxima: <strong id="modal-capacidad" class="text-slate-900">0</strong> personas</span>
+        </div>
+
+        <p id="modal-desc" class="text-sm text-slate-600 leading-relaxed"></p>
+
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Servicios incluidos</h4>
+          <div id="modal-servicios" class="flex flex-wrap gap-1.5"></div>
+        </div>
+      </div>
+
+      <!-- Botón Realizar Reserva por WhatsApp -->
+      <div class="pt-4 mt-4 border-t border-slate-100 shrink-0">
+        <a id="modal-btn-whatsapp" href="#" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 px-4 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 shadow transition">
+          <span>Realizar Reserva por WhatsApp</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

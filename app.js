@@ -1,36 +1,98 @@
+// Datos incrustados directamente para garantizar que carguen al 100% sin bloqueos de red o CORS
+const datosInmobilia = {
+  "institucional": {
+    "nombre": "Inmosur Andina",
+    "subtitulo": "Alojamientos & Alquileres Temporarios",
+    "descripcion": "Especialistas en experiencias de hospedaje únicas. Desarrollos y propuestas inspiradas en el confort, la calidad constructiva y el entorno natural.",
+    "direccion": "Calle Pública - Cañada Sur 3851, B° Manantiales I, Córdoba, Argentina",
+    "whatsapp": "5492616253304",
+    "instagram": "https://www.instagram.com/inmosurcba"
+  },
+  "propiedades": [
+    {
+      "id": 1,
+      "titulo": "Cabaña Los Pinos",
+      "ubicacion": "Bariloche",
+      "capacidad": 4,
+      "precio_dia": 85,
+      "descripcion": "Hermosa cabaña de montaña rodeada de bosques nativos, totalmente equipada con hogar a leña y vistas panorámicas increíbles.",
+      "servicios": ["WiFi", "Parrilla", "Estacionamiento", "Calefacción"],
+      "fotos": ["a.jpg", "b.jpg", "c.jpg"]
+    },
+    {
+      "id": 2,
+      "titulo": "Departamento Centro Luminoso",
+      "ubicacion": "Mendoza",
+      "capacidad": 2,
+      "precio_dia": 50,
+      "descripcion": "Moderno departamento céntrico, ideal para parejas. Cercano a la zona comercial, gastronómica y circuitos vitivinícolas.",
+      "servicios": ["WiFi", "Aire Acondicionado", "Cocina equipada", "Balcón"],
+      "fotos": ["a.jpg", "b.jpg"]
+    },
+    {
+      "id": 3,
+      "titulo": "Refugio Andino Lumbreras",
+      "ubicacion": "San Martín de los Andes",
+      "capacidad": 6,
+      "precio_dia": 120,
+      "descripcion": "Amplia casa de diseño alpino con gran parque, ventanales al bosque y excelente ubicación cerca del lago Lácar.",
+      "servicios": ["WiFi", "Parrilla", "Estacionamiento", "Hogar a leña", "Cocina completa"],
+      "fotos": ["a.jpg", "b.jpg", "c.jpg", "d.jpg"]
+    },
+    {
+      "id": 4,
+      "titulo": "Loft Minimalista Vista al Valle",
+      "ubicacion": "Ushuaia",
+      "capacidad": 2,
+      "precio_dia": 95,
+      "descripcion": "Espacio moderno con diseño de autor, calefacción por suelo radiante y grandes ventanales orientados hacia el canal de Beagle.",
+      "servicios": ["WiFi", "Calefacción central", "Smart TV", "Cocina"],
+      "fotos": ["a.jpg", "b.jpg"]
+    },
+    {
+      "id": 5,
+      "titulo": "Casa de Piedra Serrana",
+      "ubicacion": "Villa General Belgrano",
+      "capacidad": 5,
+      "precio_dia": 110,
+      "descripcion": "Tradicional construcción en piedra y madera con piscina exterior, parque privado y un entorno de absoluta tranquilidad.",
+      "servicios": ["WiFi", "Piscina", "Parrilla", "Estacionamiento", "Parque"],
+      "fotos": ["a.jpg", "b.jpg", "c.jpg"]
+    }
+  ]
+};
+
 let propiedadesData = [];
 let whatsappNumero = "";
 let propiedadActual = null;
 let fotoIndiceActual = 0;
 
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", () => {
   try {
-    const res = await fetch("./alojamientos.json");
-    const data = await res.json();
-    
-    const inst = data.institucional;
+    const inst = datosInmobilia.institucional;
     whatsappNumero = inst.whatsapp;
     
     document.getElementById("inst-titulo").innerText = inst.nombre;
     document.getElementById("inst-subtitulo").innerText = inst.subtitulo;
     document.getElementById("inst-desc").innerText = inst.descripcion;
     document.getElementById("inst-direccion").innerText = `📍 ${inst.direccion}`;
-    document.getElementById("total-propiedades").innerText = data.propiedades.length;
+    document.getElementById("total-propiedades").innerText = datosInmobilia.propiedades.length;
     
     const msgGeneral = "Hola Inmosur Andina, quisiera consultar por disponibilidad de alojamientos.";
     document.getElementById("btn-whatsapp-header").href = `https://wa.me/${whatsappNumero}?text=${encodeURIComponent(msgGeneral)}`;
     document.getElementById("link-instagram").href = inst.instagram;
 
-    propiedadesData = data.propiedades;
+    propiedadesData = datosInmobilia.propiedades;
     renderTarjetas(propiedadesData);
 
   } catch (error) {
-    console.error("Error al cargar los datos del JSON:", error);
+    console.error("Error al inicializar la aplicación:", error);
   }
 });
 
 function renderTarjetas(lista) {
   const container = document.getElementById("grid-alojamientos");
+  if (!container) return;
   container.innerHTML = "";
 
   lista.forEach(item => {

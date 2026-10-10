@@ -53,4 +53,10 @@
       "titulo": "Casa de Piedra Serrana",
       "ubicacion": "Villa General Belgrano",
       "capacidad": 5,
-      "
+      "precio_dia": 110,
+      "descripcion": "Tradicional construcción en piedra y madera con piscina exterior, parque privado y un entorno de absoluta tranquilidad.",
+      "servicios": ["WiFi", "Piscina", "Parrilla", "Estacionamiento", "Parque"],
+      "fotos": ["a.jpg", "b.jpg", "c.jpg"]
+    }
+  ]
+}

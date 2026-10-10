@@ -2,8 +2,10 @@
   "institucional": {
     "nombre": "Inmosur Andina",
     "subtitulo": "Alojamientos & Alquileres Temporarios",
-    "descripcion": "En Inmosur Andina nos especializamos en brindar experiencias únicas de hospedaje en los mejores destinos patagónicos. Comodidad, naturaleza y atención personalizada para que tu estadía sea inolvidable.",
-    "whatsapp": "5492616253304"
+    "descripcion": "Especialistas en experiencias de hospedaje únicas. Desarrollos y propuestas inspiradas en el confort, la calidad constructiva y el entorno natural.",
+    "direccion": "Calle Pública - Cañada Sur 3851, B° Manantiales I, Córdoba, Argentina",
+    "whatsapp": "5492616253304",
+    "instagram": "https://www.instagram.com/inmosurcba"
   },
   "propiedades": [
     {
@@ -51,10 +53,4 @@
       "titulo": "Casa de Piedra Serrana",
       "ubicacion": "Villa General Belgrano",
       "capacidad": 5,
-      "precio_dia": 110,
-      "descripcion": "Tradicional construcción en piedra y madera con piscina exterior, parque privado y un entorno de absoluta tranquilidad.",
-      "servicios": ["WiFi", "Piscina", "Parrilla", "Estacionamiento", "Parque"],
-      "fotos": ["a.jpg", "b.jpg", "c.jpg"]
-    }
-  ]
-}
+      "

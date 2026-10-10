@@ -1,12 +1,7 @@
-// Datos incrustados directamente para garantizar que carguen al 100% sin bloqueos de red o CORS
 const datosInmobilia = {
   "institucional": {
     "nombre": "Inmosur Andina",
-    "subtitulo": "Alojamientos & Alquileres Temporarios",
-    "descripcion": "Especialistas en experiencias de hospedaje únicas. Desarrollos y propuestas inspiradas en el confort, la calidad constructiva y el entorno natural.",
-    "direccion": "Calle Pública - Cañada Sur 3851, B° Manantiales I, Córdoba, Argentina",
-    "whatsapp": "5492616253304",
-    "instagram": "https://www.instagram.com/inmosurcba"
+    "whatsapp": "5492616253304"
   },
   "propiedades": [
     {
@@ -69,24 +64,18 @@ let fotoIndiceActual = 0;
 
 document.addEventListener("DOMContentLoaded", () => {
   try {
-    const inst = datosInmobilia.institucional;
-    whatsappNumero = inst.whatsapp;
-    
-    document.getElementById("inst-titulo").innerText = inst.nombre;
-    document.getElementById("inst-subtitulo").innerText = inst.subtitulo;
-    document.getElementById("inst-desc").innerText = inst.descripcion;
-    document.getElementById("inst-direccion").innerText = `📍 ${inst.direccion}`;
-    document.getElementById("total-propiedades").innerText = datosInmobilia.propiedades.length;
-    
-    const msgGeneral = "Hola Inmosur Andina, quisiera consultar por disponibilidad de alojamientos.";
-    document.getElementById("btn-whatsapp-header").href = `https://wa.me/${whatsappNumero}?text=${encodeURIComponent(msgGeneral)}`;
-    document.getElementById("link-instagram").href = inst.instagram;
-
+    whatsappNumero = datosInmobilia.institucional.whatsapp;
     propiedadesData = datosInmobilia.propiedades;
-    renderTarjetas(propiedadesData);
 
+    document.getElementById("total-propiedades").innerText = propiedadesData.length;
+
+    // Configurar enlace de WhatsApp en el pie de página
+    const msgGeneral = "Hola Inmosur Andina, quisiera consultar por disponibilidad de alojamientos.";
+    document.getElementById("footer-whatsapp").href = `https://wa.me/${whatsappNumero}?text=${encodeURIComponent(msgGeneral)}`;
+
+    renderTarjetas(propiedadesData);
   } catch (error) {
-    console.error("Error al inicializar la aplicación:", error);
+    console.error("Error al iniciar:", error);
   }
 });
 
@@ -100,7 +89,6 @@ function renderTarjetas(lista) {
 
     const card = document.createElement("div");
     card.className = "bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col hover:shadow-md transition cursor-pointer group";
-    
     card.onclick = () => abrirModal(item.id);
 
     card.innerHTML = `

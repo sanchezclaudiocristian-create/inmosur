@@ -1,4 +1,3 @@
-                                                                                                                                                                                                                                                                                                                                                                                                              });
 let propiedadesData = [];
 let whatsappNumero = "";
 let propiedadActual = null;
@@ -9,36 +8,39 @@ document.addEventListener("DOMContentLoaded", async () => {
     const res = await fetch("./alojamientos.json");
     const data = await res.json();
     
-    // Institucional
+    // Datos institucionales
     whatsappNumero = data.institucional.whatsapp;
     document.getElementById("inst-titulo").innerText = data.institucional.nombre;
     document.getElementById("inst-subtitulo").innerText = data.institucional.subtitulo;
     document.getElementById("inst-desc").innerText = data.institucional.descripcion;
     document.getElementById("total-propiedades").innerText = data.propiedades.length;
     
-    // Enlace de WhatsApp en header
+    // Enlace de WhatsApp en el header superior
     const msgGeneral = "Hola Inmosur Andina, quisiera consultar por disponibilidad de alojamientos.";
     document.getElementById("btn-whatsapp-header").href = `https://wa.me/${whatsappNumero}?text=${encodeURIComponent(msgGeneral)}`;
 
-    // Propiedades
+    // Cargar propiedades en las tarjetas
     propiedadesData = data.propiedades;
     renderTarjetas(propiedadesData);
 
   } catch (error) {
-    console.error("Error al cargar los datos:", error);
+    console.error("Error al cargar los datos de alojamientos.json:", error);
   }
 });
 
-// Renderizar tarjetas resumidas
+// 1. Renderizar las tarjetas resumidas en la página principal
 function renderTarjetas(lista) {
   const container = document.getElementById("grid-alojamientos");
   container.innerHTML = "";
 
   lista.forEach(item => {
+    // Muestra solo la imagen principal (a.jpg) en la tarjeta
     const fotoPrincipal = `./imagenes/${item.id}/${item.fotos[0]}`;
 
     const card = document.createElement("div");
     card.className = "bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col hover:shadow-md transition cursor-pointer group";
+    
+    // Al presionar la tarjeta completa, se abre el modal de detalle
     card.onclick = () => abrirModal(item.id);
 
     card.innerHTML = `
@@ -70,7 +72,7 @@ function renderTarjetas(lista) {
   });
 }
 
-// Abrir Modal de Detalle
+// 2. Abrir Modal de Detalle con la información de la propiedad
 function abrirModal(id) {
   propiedadActual = propiedadesData.find(p => p.id === id);
   if (!propiedadActual) return;
@@ -84,16 +86,17 @@ function abrirModal(id) {
   document.getElementById("modal-capacidad").innerText = `${propiedadActual.capacidad} personas`;
   document.getElementById("modal-desc").innerText = propiedadActual.descripcion;
 
-  // Renderizar servicios
+  // Renderizar servicios en el modal
   const serviciosContainer = document.getElementById("modal-servicios");
   serviciosContainer.innerHTML = propiedadActual.servicios
     .map(s => `<span class="text-xs bg-slate-100 text-slate-700 px-2.5 py-1 rounded-lg font-medium">${s}</span>`)
     .join('');
 
-  // Enlace WhatsApp con mensaje personalizado de reserva
+  // Configurar botón de reserva por WhatsApp con mensaje predeterminado
   const mensajeReserva = `Hola Inmosur Andina, quiero realizar una reserva para el alojamiento "${propiedadActual.titulo}" (ID: ${propiedadActual.id}, Ubicación: ${propiedadActual.ubicacion}). ¿Me confirman disponibilidad?`;
   document.getElementById("modal-btn-whatsapp").href = `https://wa.me/${whatsappNumero}?text=${encodeURIComponent(mensajeReserva)}`;
 
+  // Mostrar el modal
   document.getElementById("modal-detalle").classList.remove("hidden");
 }
 
@@ -101,7 +104,7 @@ function cerrarModal() {
   document.getElementById("modal-detalle").classList.add("hidden");
 }
 
-// Control del Carrusel en el Modal
+// 3. Control del Carrusel de imágenes dentro del Modal
 function cambiarFoto(direccion) {
   if (!propiedadActual) return;
   fotoIndiceActual += direccion;
@@ -122,42 +125,3 @@ function actualizarVistaCarrusel() {
   document.getElementById("carousel-index").innerText = fotoIndiceActual + 1;
   document.getElementById("carousel-total").innerText = propiedadActual.fotos.length;
 }
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                  renderAlojamientos(filtrados);
-                                                                                                                                                                                                                                                                                                                                                                                                                                                  }
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                  // Lógica del Modal / Galería
-                                                                                                                                                                                                                                                                                                                                                                                                                                                  function abrirGaleria(id) {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                    const item = alojamientosData.find(a => a.id === id);
-                                                                                                                                                                                                                                                                                                                                                                                                                                                      if (!item) return;
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                        document.getElementById("modal-title").innerText = item.titulo;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                          const imgActive = document.getElementById("modal-img-active");
-                                                                                                                                                                                                                                                                                                                                                                                                                                                            const thumbsContainer = document.getElementById("modal-thumbnails");
-                                                                                                                                                                                                                                                                                                                                                                                                                                                              thumbsContainer.innerHTML = "";
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                const rutasFotos = item.fotos.map(f => `./imagenes/${item.id}/${f}`);
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                    // Foto inicial
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                      imgActive.src = rutasFotos[0];
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                        // Crear miniaturas
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                          rutasFotos.forEach((src, idx) => {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                              const thumb = document.createElement("img");
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  thumb.src = src;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      thumb.className = `w-16 h-12 object-cover rounded-md cursor-pointer border-2 ${idx === 0 ? 'border-blue-500' : 'border-transparent'} hover:opacity-80`;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          thumb.onclick = () => {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                imgActive.src = src;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      Array.from(thumbsContainer.children).forEach(c => c.classList.replace('border-blue-500', 'border-transparent'));
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            thumb.classList.replace('border-transparent', 'border-blue-500');
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                };
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    thumbsContainer.appendChild(thumb);
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      });
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        document.getElementById("modal-galeria").classList.remove("hidden");
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        }
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        function cerrarModal() {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          document.getElementById("modal-galeria").classList.add("hidden");
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          

@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const res = await fetch("./alojamientos.json");
     const data = await res.json();
     
-    // Cargar datos institucionales y redes
     const inst = data.institucional;
     whatsappNumero = inst.whatsapp;
     
@@ -18,12 +17,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("inst-direccion").innerText = `📍 ${inst.direccion}`;
     document.getElementById("total-propiedades").innerText = data.propiedades.length;
     
-    // Enlaces de contacto y redes
     const msgGeneral = "Hola Inmosur Andina, quisiera consultar por disponibilidad de alojamientos.";
     document.getElementById("btn-whatsapp-header").href = `https://wa.me/${whatsappNumero}?text=${encodeURIComponent(msgGeneral)}`;
     document.getElementById("link-instagram").href = inst.instagram;
 
-    // Cargar propiedades
     propiedadesData = data.propiedades;
     renderTarjetas(propiedadesData);
 
@@ -32,19 +29,16 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-// Renderizar tarjetas resumidas
 function renderTarjetas(lista) {
   const container = document.getElementById("grid-alojamientos");
   container.innerHTML = "";
 
   lista.forEach(item => {
-    // Muestra la imagen principal (a.jpg) en la tarjeta
     const fotoPrincipal = `./imagenes/${item.id}/${item.fotos[0]}`;
 
     const card = document.createElement("div");
     card.className = "bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col hover:shadow-md transition cursor-pointer group";
     
-    // Al presionar la tarjeta se abre el modal de detalle
     card.onclick = () => abrirModal(item.id);
 
     card.innerHTML = `
@@ -76,7 +70,6 @@ function renderTarjetas(lista) {
   });
 }
 
-// Abrir Modal de Detalle
 function abrirModal(id) {
   propiedadActual = propiedadesData.find(p => p.id === id);
   if (!propiedadActual) return;
@@ -90,13 +83,11 @@ function abrirModal(id) {
   document.getElementById("modal-capacidad").innerText = `${propiedadActual.capacidad} personas`;
   document.getElementById("modal-desc").innerText = propiedadActual.descripcion;
 
-  // Renderizar servicios
   const serviciosContainer = document.getElementById("modal-servicios");
   serviciosContainer.innerHTML = propiedadActual.servicios
     .map(s => `<span class="text-xs bg-slate-100 text-slate-700 px-2.5 py-1 rounded-lg font-medium">${s}</span>`)
     .join('');
 
-  // Mensaje de reserva por WhatsApp
   const mensajeReserva = `Hola Inmosur Andina, quiero realizar una reserva para el alojamiento "${propiedadActual.titulo}" (ID: ${propiedadActual.id}, Ubicación: ${propiedadActual.ubicacion}). ¿Me confirman disponibilidad?`;
   document.getElementById("modal-btn-whatsapp").href = `https://wa.me/${whatsappNumero}?text=${encodeURIComponent(mensajeReserva)}`;
 
@@ -107,7 +98,6 @@ function cerrarModal() {
   document.getElementById("modal-detalle").classList.add("hidden");
 }
 
-// Control del Carrusel en el Modal
 function cambiarFoto(direccion) {
   if (!propiedadActual) return;
   fotoIndiceActual += direccion;

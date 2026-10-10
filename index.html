@@ -38,10 +38,15 @@
         </span>
       </a>
 
-      <!-- Botón de Contacto Rápido -->
-      <a id="btn-whatsapp-header" href="#" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm transition">
-        <span>Contacto WhatsApp</span>
-      </a>
+      <!-- Botones Header -->
+      <div class="flex items-center gap-2">
+        <a id="link-instagram" href="#" target="_blank" class="bg-slate-100 hover:bg-slate-200 text-brand-navy p-2.5 rounded-xl text-xs font-semibold flex items-center justify-center transition" title="Instagram">
+          📸
+        </a>
+        <a id="btn-whatsapp-header" href="#" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-sm transition">
+          <span>WhatsApp</span>
+        </a>
+      </div>
     </div>
   </header>
 
@@ -49,13 +54,16 @@
   <main class="max-w-6xl mx-auto px-4 py-8 flex-1 w-full space-y-8">
     
     <!-- Sección Institucional -->
-    <section class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6">
-      <div class="space-y-2 max-w-2xl">
+    <section class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+      <div class="space-y-3 max-w-2xl">
         <h2 id="inst-titulo" class="text-2xl sm:text-3xl font-extrabold text-brand-navy">Inmosur Andina</h2>
         <p id="inst-subtitulo" class="text-brand-terracotta font-semibold text-sm">Alojamientos & Alquileres Temporarios</p>
-        <p id="inst-desc" class="text-slate-600 text-sm leading-relaxed pt-1">Especialistas en experiencias de hospedaje únicas en los mejores destinos patagónicos.</p>
+        <p id="inst-desc" class="text-slate-600 text-sm leading-relaxed"></p>
+        <p id="inst-direccion" class="text-xs text-slate-500 font-medium flex items-center gap-1.5 pt-1">
+          📍 Cargando dirección...
+        </p>
       </div>
-      <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center shrink-0">
+      <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center shrink-0 w-full lg:w-auto">
         <span class="block text-2xl font-black text-brand-navy" id="total-propiedades">5</span>
         <span class="text-[11px] font-semibold text-brand-terracotta uppercase tracking-wider">Propiedades Exclusivas</span>
       </div>
@@ -74,8 +82,9 @@
   </main>
 
   <!-- Footer -->
-  <footer class="bg-brand-navy text-slate-300 text-center py-6 text-xs border-t border-slate-800 mt-12">
+  <footer class="bg-brand-navy text-slate-300 text-center py-6 text-xs border-t border-slate-800 mt-12 space-y-2">
     <p>&copy; 2026 Inmosur Andina. Todos los derechos reservados.</p>
+    <p class="text-[11px] text-slate-400">Calle Pública - Cañada Sur 3851, B° Manantiales I, Córdoba, Argentina</p>
   </footer>
 
   <!-- Modal de Detalle y Carrusel -->

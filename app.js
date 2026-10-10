@@ -1,104 +1,127 @@
-let alojamientosData = [];
+                                                                                                                                                                                                                                                                                                                                                                                                              });
+let propiedadesData = [];
 let whatsappNumero = "";
+let propiedadActual = null;
+let fotoIndiceActual = 0;
 
-// Cargar datos al iniciar
 document.addEventListener("DOMContentLoaded", async () => {
   try {
-      const res = await fetch("./alojamientos.json");
-          const data = await res.json();
-              
-                  // Cargar info institucional
-                      const inst = data.institucional;
-                          whatsappNumero = inst.whatsapp;
-                              document.getElementById("hero-title").innerText = inst.nombre;
-                                  document.getElementById("hero-subtitle").innerText = inst.subtitulo;
-                                      document.getElementById("hero-desc").innerText = inst.descripcion;
-                                          document.getElementById("btn-whatsapp-header").href = `https://wa.me/${whatsappNumero}?text=${encodeURIComponent("Hola Inmosur, quisiera hacer una consulta.")}`;
+    const res = await fetch("./alojamientos.json");
+    const data = await res.json();
+    
+    // Institucional
+    whatsappNumero = data.institucional.whatsapp;
+    document.getElementById("inst-titulo").innerText = data.institucional.nombre;
+    document.getElementById("inst-subtitulo").innerText = data.institucional.subtitulo;
+    document.getElementById("inst-desc").innerText = data.institucional.descripcion;
+    document.getElementById("total-propiedades").innerText = data.propiedades.length;
+    
+    // Enlace de WhatsApp en header
+    const msgGeneral = "Hola Inmosur Andina, quisiera consultar por disponibilidad de alojamientos.";
+    document.getElementById("btn-whatsapp-header").href = `https://wa.me/${whatsappNumero}?text=${encodeURIComponent(msgGeneral)}`;
 
-                                              // Guardar y renderizar propiedades
-                                                  alojamientosData = data.propiedades;
-                                                      renderAlojamientos(alojamientosData);
+    // Propiedades
+    propiedadesData = data.propiedades;
+    renderTarjetas(propiedadesData);
 
-                                                          // Eventos de filtros
-                                                              document.getElementById("filter-text").addEventListener("input", aplicarFiltros);
-                                                                  document.getElementById("filter-capacity").addEventListener("change", aplicarFiltros);
+  } catch (error) {
+    console.error("Error al cargar los datos:", error);
+  }
+});
 
-                                                                      // Evento cerrar modal
-                                                                          document.getElementById("close-modal").addEventListener("click", cerrarModal);
-                                                                            } catch (error) {
-                                                                                console.error("Error cargando los datos:", error);
-                                                                                  }
-                                                                                  });
+// Renderizar tarjetas resumidas
+function renderTarjetas(lista) {
+  const container = document.getElementById("grid-alojamientos");
+  container.innerHTML = "";
 
-                                                                                  // Renderizar tarjetas en el HTML
-                                                                                  function renderAlojamientos(lista) {
-                                                                                    const container = document.getElementById("grid-alojamientos");
-                                                                                      container.innerHTML = "";
+  lista.forEach(item => {
+    const fotoPrincipal = `./imagenes/${item.id}/${item.fotos[0]}`;
 
-                                                                                        if (lista.length === 0) {
-                                                                                            container.innerHTML = `<p class="col-span-full text-center text-gray-500 py-8">No se encontraron alojamientos que coincidan con la búsqueda.</p>`;
-                                                                                                return;
-                                                                                                  }
+    const card = document.createElement("div");
+    card.className = "bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col hover:shadow-md transition cursor-pointer group";
+    card.onclick = () => abrirModal(item.id);
 
-                                                                                                    lista.forEach(item => {
-                                                                                                        // Foto principal: imagenes/[id]/a.jpg
-                                                                                                            const fotoPrincipal = `./imagenes/${item.id}/${item.fotos[0]}`;
-                                                                                                                
-                                                                                                                    // Enlace directo a WhatsApp con mensaje personalizado
-                                                                                                                        const msj = `Hola Inmosur, quisiera consultar la disponibilidad de "${item.titulo}" (ID: ${item.id}).`;
-                                                                                                                            const urlWa = `https://wa.me/${whatsappNumero}?text=${encodeURIComponent(msj)}`;
+    card.innerHTML = `
+      <div class="relative h-52 bg-slate-100 overflow-hidden">
+        <img src="${fotoPrincipal}" alt="${item.titulo}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://via.placeholder.com/400x250?text=Inmosur+Andina'" />
+        <span class="absolute bottom-3 left-3 bg-slate-900/75 backdrop-blur-md text-white text-xs font-semibold px-2.5 py-1 rounded-lg">
+          📍 ${item.ubicacion}
+        </span>
+        <span class="absolute top-3 right-3 bg-white/90 backdrop-blur-md text-slate-900 font-black text-xs px-2.5 py-1 rounded-lg shadow-sm">
+          US$${item.precio_dia} <span class="text-[10px] font-normal text-slate-500">/día</span>
+        </span>
+      </div>
+      
+      <div class="p-5 flex-1 flex flex-col justify-between space-y-3">
+        <div>
+          <h3 class="font-bold text-lg text-slate-900 leading-snug group-hover:text-sky-600 transition">${item.titulo}</h3>
+          <p class="text-xs text-slate-500 mt-1">👤 Capacidad: hasta ${item.capacidad} personas</p>
+          <p class="text-xs text-slate-600 mt-2 line-clamp-2">${item.descripcion}</p>
+        </div>
 
-                                                                                                                                const card = document.createElement("div");
-                                                                                                                                    card.className = "bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col hover:shadow-md transition";
+        <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+          <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-md">Ver detalle y fotos</span>
+          <span class="text-slate-400 text-sm">➔</span>
+        </div>
+      </div>
+    `;
 
-                                                                                                                                        card.innerHTML = `
-                                                                                                                                              <div class="relative h-48 bg-gray-200 cursor-pointer overflow-hidden group" onclick="abrirGaleria(${item.id})">
-                                                                                                                                                      <img src="${fotoPrincipal}" alt="${item.titulo}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="this.src='https://via.placeholder.com/400x250?text=Foto+Inmosur'" />
-                                                                                                                                                              <span class="absolute bottom-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded-md backdrop-blur-sm">
-                                                                                                                                                                        📸 ${item.fotos.length} fotos
-                                                                                                                                                                                </span>
-                                                                                                                                                                                      </div>
-                                                                                                                                                                                            
-                                                                                                                                                                                                  <div class="p-5 flex-1 flex flex-col justify-between">
-                                                                                                                                                                                                          <div>
-                                                                                                                                                                                                                    <div class="flex justify-between items-start mb-2">
-                                                                                                                                                                                                                                <h3 class="font-bold text-lg text-gray-900 leading-snug">${item.titulo}</h3>
-                                                                                                                                                                                                                                            <span class="text-blue-900 font-bold text-sm bg-blue-50 px-2.5 py-1 rounded-lg">US$${item.precio_noche}<span class="text-xs text-gray-500 font-normal">/noche</span></span>
-                                                                                                                                                                                                                                                      </div>
-                                                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                                                          <p class="text-xs text-gray-500 mb-2">📍 ${item.ubicacion} • 👤 Capacidad: ${item.capacidad} personas</p>
-                                                                                                                                                                                                                                                                                    <p class="text-sm text-gray-600 mb-4 line-clamp-2">${item.descripcion}</p>
+    container.appendChild(card);
+  });
+}
 
-                                                                                                                                                                                                                                                                                              <div class="flex flex-wrap gap-1.5 mb-5">
-                                                                                                                                                                                                                                                                                                          ${item.servicios.map(s => `<span class="text-[11px] bg-gray-100 text-gray-600 px-2 py-0.5 rounded-md">${s}</span>`).join('')}
-                                                                                                                                                                                                                                                                                                                    </div>
-                                                                                                                                                                                                                                                                                                                            </div>
+// Abrir Modal de Detalle
+function abrirModal(id) {
+  propiedadActual = propiedadesData.find(p => p.id === id);
+  if (!propiedadActual) return;
 
-                                                                                                                                                                                                                                                                                                                                    <div class="flex gap-2 pt-3 border-t border-gray-100">
-                                                                                                                                                                                                                                                                                                                                              <button onclick="abrirGaleria(${item.id})" class="flex-1 py-2 px-3 border border-gray-300 rounded-lg text-xs font-semibold text-gray-700 hover:bg-gray-50 transition">
-                                                                                                                                                                                                                                                                                                                                                          Ver Fotos
-                                                                                                                                                                                                                                                                                                                                                                    </button>
-                                                                                                                                                                                                                                                                                                                                                                              <a href="${urlWa}" target="_blank" class="flex-1 py-2 px-3 bg-green-500 hover:bg-green-600 text-white rounded-lg text-xs font-semibold text-center transition flex items-center justify-center gap-1">
-                                                                                                                                                                                                                                                                                                                                                                                          Consultar
-                                                                                                                                                                                                                                                                                                                                                                                                    </a>
-                                                                                                                                                                                                                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                  </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                      `;
+  fotoIndiceActual = 0;
+  actualizarVistaCarrusel();
 
-                                                                                                                                                                                                                                                                                                                                                                                                                          container.appendChild(card);
-                                                                                                                                                                                                                                                                                                                                                                                                                            });
-                                                                                                                                                                                                                                                                                                                                                                                                                            }
+  document.getElementById("modal-titulo").innerText = propiedadActual.titulo;
+  document.getElementById("modal-ubicacion").innerText = `📍 ${propiedadActual.ubicacion}`;
+  document.getElementById("modal-precio").innerText = `US$${propiedadActual.precio_dia}`;
+  document.getElementById("modal-capacidad").innerText = `${propiedadActual.capacidad} personas`;
+  document.getElementById("modal-desc").innerText = propiedadActual.descripcion;
 
-                                                                                                                                                                                                                                                                                                                                                                                                                            // Filtros
-                                                                                                                                                                                                                                                                                                                                                                                                                            function aplicarFiltros() {
-                                                                                                                                                                                                                                                                                                                                                                                                                              const texto = document.getElementById("filter-text").value.toLowerCase();
-                                                                                                                                                                                                                                                                                                                                                                                                                                const capacidad = parseInt(document.getElementById("filter-capacity").value, 10);
+  // Renderizar servicios
+  const serviciosContainer = document.getElementById("modal-servicios");
+  serviciosContainer.innerHTML = propiedadActual.servicios
+    .map(s => `<span class="text-xs bg-slate-100 text-slate-700 px-2.5 py-1 rounded-lg font-medium">${s}</span>`)
+    .join('');
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                  const filtrados = alojamientosData.filter(item => {
-                                                                                                                                                                                                                                                                                                                                                                                                                                      const coincideTexto = item.titulo.toLowerCase().includes(texto) || item.ubicacion.toLowerCase().includes(texto);
-                                                                                                                                                                                                                                                                                                                                                                                                                                          const coincideCapacidad = capacidad === 0 || item.capacidad >= capacidad;
-                                                                                                                                                                                                                                                                                                                                                                                                                                              return coincideTexto && coincideCapacidad;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                });
+  // Enlace WhatsApp con mensaje personalizado de reserva
+  const mensajeReserva = `Hola Inmosur Andina, quiero realizar una reserva para el alojamiento "${propiedadActual.titulo}" (ID: ${propiedadActual.id}, Ubicación: ${propiedadActual.ubicacion}). ¿Me confirman disponibilidad?`;
+  document.getElementById("modal-btn-whatsapp").href = `https://wa.me/${whatsappNumero}?text=${encodeURIComponent(mensajeReserva)}`;
+
+  document.getElementById("modal-detalle").classList.remove("hidden");
+}
+
+function cerrarModal() {
+  document.getElementById("modal-detalle").classList.add("hidden");
+}
+
+// Control del Carrusel en el Modal
+function cambiarFoto(direccion) {
+  if (!propiedadActual) return;
+  fotoIndiceActual += direccion;
+  
+  if (fotoIndiceActual < 0) {
+    fotoIndiceActual = propiedadActual.fotos.length - 1;
+  } else if (fotoIndiceActual >= propiedadActual.fotos.length) {
+    fotoIndiceActual = 0;
+  }
+
+  actualizarVistaCarrusel();
+}
+
+function actualizarVistaCarrusel() {
+  if (!propiedadActual) return;
+  const rutaFoto = `./imagenes/${propiedadActual.id}/${propiedadActual.fotos[fotoIndiceActual]}`;
+  document.getElementById("modal-img").src = rutaFoto;
+  document.getElementById("carousel-index").innerText = fotoIndiceActual + 1;
+  document.getElementById("carousel-total").innerText = propiedadActual.fotos.length;
+}
 
                                                                                                                                                                                                                                                                                                                                                                                                                                                   renderAlojamientos(filtrados);
                                                                                                                                                                                                                                                                                                                                                                                                                                                   }

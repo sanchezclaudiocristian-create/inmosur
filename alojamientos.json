@@ -1,32 +1,60 @@
 {
-      "institucional": {
-          "nombre": "Inmosur",
-              "subtitulo": "Alojamientos & Alquileres Temporarios",
-                  "descripcion": "Encuentra el lugar perfecto para tus vacaciones o estadías cortas.",
-                      "whatsapp": "5491112345678"
-                        },
-                          "propiedades": [
-                              {
-                                    "id": 1,
-                                          "titulo": "Cabaña Los Pinos",
-                                                "ubicacion": "Bariloche",
-                                                      "capacidad": 4,
-                                                            "precio_noche": 85,
-                                                                  "descripcion": "Hermosa cabaña de montaña rodeada de naturaleza con excelente vista y calidez.",
-                                                                        "servicios": ["WiFi", "Parrilla", "Estacionamiento", "Calefacción"],
-                                                                              "fotos": ["a.jpg", "b.jpg", "c.jpg"]
-                                                                                  },
-                                                                                      {
-                                                                                            "id": 2,
-                                                                                                  "titulo": "Departamento Centro Luminoso",
-                                                                                                        "ubicacion": "Mendoza",
-                                                                                                              "capacidad": 2,
-                                                                                                                    "precio_noche": 50,
-                                                                                                                          "descripcion": "Ubicado a pocas cuadras de la plaza principal y la zona gastronómica.",
-                                                                                                                                "servicios": ["WiFi", "Aire Acondicionado", "Cocina equipada"],
-                                                                                                                                      "fotos": ["a.jpg", "b.jpg"]
-                                                                                                                                          }
-                                                                                                                                            ]
-                                                                                                                                            }
-                                                                                                                                            
+  "institucional": {
+    "nombre": "Inmosur Andina",
+    "subtitulo": "Alojamientos & Alquileres Temporarios",
+    "descripcion": "En Inmosur Andina nos especializamos en brindar experiencias únicas de hospedaje en los mejores destinos patagónicos. Comodidad, naturaleza y atención personalizada para que tu estadía sea inolvidable.",
+    "whatsapp": "5492616253304"
+  },
+  "propiedades": [
+    {
+      "id": 1,
+      "titulo": "Cabaña Los Pinos",
+      "ubicacion": "Bariloche",
+      "capacidad": 4,
+      "precio_dia": 85,
+      "descripcion": "Hermosa cabaña de montaña rodeada de bosques nativos, totalmente equipada con hogar a leña y vistas panorámicas increíbles.",
+      "servicios": ["WiFi", "Parrilla", "Estacionamiento", "Calefacción"],
+      "fotos": ["a.jpg", "b.jpg", "c.jpg"]
+    },
+    {
+      "id": 2,
+      "titulo": "Departamento Centro Luminoso",
+      "ubicacion": "Mendoza",
+      "capacidad": 2,
+      "precio_dia": 50,
+      "descripcion": "Moderno departamento céntrico, ideal para parejas. Cercano a la zona comercial, gastronómica y circuitos vitivinícolas.",
+      "servicios": ["WiFi", "Aire Acondicionado", "Cocina equipada", "Balcón"],
+      "fotos": ["a.jpg", "b.jpg"]
+    },
+    {
+      "id": 3,
+      "titulo": "Refugio Andino Lumbreras",
+      "ubicacion": "San Martín de los Andes",
+      "capacidad": 6,
+      "precio_dia": 120,
+      "descripcion": "Amplia casa de diseño alpino con gran parque, ventanales al bosque y excelente ubicación cerca del lago Lácar.",
+      "servicios": ["WiFi", "Parrilla", "Estacionamiento", "Hogar a leña", "Cocina completa"],
+      "fotos": ["a.jpg", "b.jpg", "c.jpg", "d.jpg"]
+    },
+    {
+      "id": 4,
+      "titulo": "Loft Minimalista Vista al Valle",
+      "ubicacion": "Ushuaia",
+      "capacidad": 2,
+      "precio_dia": 95,
+      "descripcion": "Espacio moderno con diseño de autor, calefacción por suelo radiante y grandes ventanales orientados hacia el canal de Beagle.",
+      "servicios": ["WiFi", "Calefacción central", "Smart TV", "Cocina"],
+      "fotos": ["a.jpg", "b.jpg"]
+    },
+    {
+      "id": 5,
+      "titulo": "Casa de Piedra Serrana",
+      "ubicacion": "Villa General Belgrano",
+      "capacidad": 5,
+      "precio_dia": 110,
+      "descripcion": "Tradicional construcción en piedra y madera con piscina exterior, parque privado y un entorno de absoluta tranquilidad.",
+      "servicios": ["WiFi", "Piscina", "Parrilla", "Estacionamiento", "Parque"],
+      "fotos": ["a.jpg", "b.jpg", "c.jpg"]
+    }
+  ]
 }

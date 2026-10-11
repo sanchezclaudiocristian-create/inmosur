@@ -1,4 +1,4 @@
-// Base de datos integrada y segura para evitar bloqueos del navegador en GitHub Pages
+// Base de datos integrada segura
 const datosInmobiliaCompletos = {
   "institucional": {
     "nombre": "Inmosur Andina",
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
   whatsappNumero = inst.whatsapp;
   propiedadesData = datosInmobiliaCompletos.propiedades;
 
-  // Asignar textos institucionales de forma segura
+  // Asignar textos institucionales
   document.getElementById("inst-titulo").innerText = inst.nombre;
   document.getElementById("inst-subtitulo").innerText = inst.subtitulo;
   document.getElementById("inst-desc").innerText = inst.descripcion;
@@ -156,17 +156,17 @@ function abrirModal(id) {
   document.getElementById("modal-capacidad").innerText = `${propiedadActual.capacidad} personas`;
   document.getElementById("modal-desc").innerText = propiedadActual.descripcion;
 
-  // Enlace corregido a Google Maps usando las coordenadas del JSON
+  // Google Maps
   const urlGoogleMaps = `https://www.google.com/maps/search/?api=1&query=${propiedadActual.lat},${propiedadActual.lng}`;
   document.getElementById("modal-btn-mapa").href = urlGoogleMaps;
 
-  // Renderizar servicios
+  // Servicios
   const serviciosContainer = document.getElementById("modal-servicios");
   serviciosContainer.innerHTML = propiedadActual.servicios
     .map(s => `<span class="text-xs bg-slate-100 text-slate-700 px-2.5 py-1 rounded-lg font-medium">${s}</span>`)
     .join('');
 
-  // Enlace WhatsApp de reserva específica
+  // WhatsApp
   const mensajeReserva = `Hola Inmosur Andina, quiero realizar una reserva para el alojamiento "${propiedadActual.titulo}" (ID: ${propiedadActual.id}, Ubicación: ${propiedadActual.ubicacion}). ¿Me confirman disponibilidad?`;
   document.getElementById("modal-btn-whatsapp").href = `https://wa.me/${whatsappNumero}?text=${encodeURIComponent(mensajeReserva)}`;
 

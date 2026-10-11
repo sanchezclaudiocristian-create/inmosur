@@ -5,7 +5,8 @@
     "descripcion": "Especialistas en experiencias de hospedaje únicas. Desarrollos y propuestas inspiradas en el confort, la calidad constructiva y el entorno natural.",
     "direccion": "Calle Pública - Cañada Sur 3851, B° Manantiales I, Córdoba, Argentina",
     "whatsapp": "5492616253304",
-    "instagram": "https://www.instagram.com/inmosurcba"
+    "instagram": "https://www.instagram.com/inmosurcba",
+    "grupo_edisur": "https://www.grupoedisur.com.ar/desarrollos/manantiales/lotes/el-paso/"
   },
   "propiedades": [
     {
@@ -14,9 +15,11 @@
       "ubicacion": "Bariloche",
       "capacidad": 4,
       "precio_dia": 85,
+      "lat": -41.1334,
+      "lng": -71.3103,
       "descripcion": "Hermosa cabaña de montaña rodeada de bosques nativos, totalmente equipada con hogar a leña y vistas panorámicas increíbles.",
       "servicios": ["WiFi", "Parrilla", "Estacionamiento", "Calefacción"],
-      "fotos": ["a.jpg", "b.jpg", "c.jpg"]
+      "fotos": ["a.jpg", "b.jpg", "c.jpg", "d.jpg"]
     },
     {
       "id": 2,
@@ -24,9 +27,11 @@
       "ubicacion": "Mendoza",
       "capacidad": 2,
       "precio_dia": 50,
+      "lat": -32.8895,
+      "lng": -68.8458,
       "descripcion": "Moderno departamento céntrico, ideal para parejas. Cercano a la zona comercial, gastronómica y circuitos vitivinícolas.",
       "servicios": ["WiFi", "Aire Acondicionado", "Cocina equipada", "Balcón"],
-      "fotos": ["a.jpg", "b.jpg"]
+      "fotos": ["a.jpg", "b.jpg", "c.jpg", "d.jpg"]
     },
     {
       "id": 3,
@@ -34,6 +39,8 @@
       "ubicacion": "San Martín de los Andes",
       "capacidad": 6,
       "precio_dia": 120,
+      "lat": -40.1583,
+      "lng": -71.3537,
       "descripcion": "Amplia casa de diseño alpino con gran parque, ventanales al bosque y excelente ubicación cerca del lago Lácar.",
       "servicios": ["WiFi", "Parrilla", "Estacionamiento", "Hogar a leña", "Cocina completa"],
       "fotos": ["a.jpg", "b.jpg", "c.jpg", "d.jpg"]
@@ -44,9 +51,11 @@
       "ubicacion": "Ushuaia",
       "capacidad": 2,
       "precio_dia": 95,
+      "lat": -54.8019,
+      "lng": -68.3030,
       "descripcion": "Espacio moderno con diseño de autor, calefacción por suelo radiante y grandes ventanales orientados hacia el canal de Beagle.",
       "servicios": ["WiFi", "Calefacción central", "Smart TV", "Cocina"],
-      "fotos": ["a.jpg", "b.jpg"]
+      "fotos": ["a.jpg", "b.jpg", "c.jpg", "d.jpg"]
     },
     {
       "id": 5,
@@ -54,9 +63,11 @@
       "ubicacion": "Villa General Belgrano",
       "capacidad": 5,
       "precio_dia": 110,
+      "lat": -31.9847,
+      "lng": -64.5555,
       "descripcion": "Tradicional construcción en piedra y madera con piscina exterior, parque privado y un entorno de absoluta tranquilidad.",
       "servicios": ["WiFi", "Piscina", "Parrilla", "Estacionamiento", "Parque"],
-      "fotos": ["a.jpg", "b.jpg", "c.jpg"]
+      "fotos": ["a.jpg", "b.jpg", "c.jpg", "d.jpg"]
     }
   ]
 }

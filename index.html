@@ -24,13 +24,13 @@
 </head>
 <body class="bg-brand-light text-slate-800 font-sans min-h-screen flex flex-col">
 
-  <!-- Header / Logotipo Oficial desde la ruta solicitada -->
+  <!-- Header / Logotipo Oficial (.png) -->
   <header class="bg-white text-brand-navy shadow-sm border-b border-slate-200 sticky top-0 z-40">
     <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
       
-      <!-- Logo Imagen con respaldo a texto si no carga -->
+      <!-- Logo Imagen PNG con respaldo a texto si no carga -->
       <a href="#" class="flex items-center gap-3">
-        <img src="./imagenes/logo.jpg" alt="Inmosur Andina" class="h-10 sm:h-12 w-auto object-contain rounded-lg" onerror="this.style.display='none'; document.getElementById('logo-texto-fallback').style.display='flex';" />
+        <img src="./imagenes/logo.png" alt="Inmosur Andina" class="h-10 sm:h-12 w-auto object-contain rounded-lg" onerror="this.style.display='none'; document.getElementById('logo-texto-fallback').style.display='flex';" />
         <div id="logo-texto-fallback" style="display:none;" class="flex-col">
           <span class="text-2xl font-black tracking-tight text-brand-navy lowercase leading-none">inmosur</span>
           <span class="text-[10px] font-bold tracking-[0.35em] text-brand-terracotta uppercase mt-1">ANDINA</span>

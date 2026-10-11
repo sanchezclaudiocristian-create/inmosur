@@ -1,40 +1,35 @@
-// Datos institucionales fijos y seguros (evita fallos de red o fetch)
-const datosInstitucionales = {
-  nombre: "Inmosur Andina",
-  subtitulo: "Alojamientos & Alquileres Temporarios",
-  descripcion: "Especialistas en experiencias de hospedaje únicas. Desarrollos y propuestas inspiradas en el confort, la calidad constructiva y el entorno natural.",
-  direccion: "Calle Pública - Cañada Sur 3851, B° Manantiales I, Córdoba, Argentina",
-  whatsapp: "5492616253304",
-  instagram: "https://www.instagram.com/inmosurcba",
-  grupo_edisur: "https://www.grupoedisur.com.ar/desarrollos/manantiales/lotes/el-paso/"
-};
-
 let propiedadesData = [];
+let whatsappNumero = "";
 let propiedadActual = null;
 let fotoIndiceActual = 0;
 
 document.addEventListener("DOMContentLoaded", async () => {
-  // 1. Cargar datos institucionales de inmediato
-  document.getElementById("inst-titulo").innerText = datosInstitucionales.nombre;
-  document.getElementById("inst-subtitulo").innerText = datosInstitucionales.subtitulo;
-  document.getElementById("inst-desc").innerText = datosInstitucionales.descripcion;
-  document.getElementById("inst-direccion").innerText = `📍 ${datosInstitucionales.direccion}`;
-  
-  document.getElementById("footer-dir").innerText = `📍 ${datosInstitucionales.direccion}`;
-  document.getElementById("link-instagram").href = datosInstitucionales.instagram;
-  document.getElementById("link-edisur").href = datosInstitucionales.grupo_edisur;
-
-  const msgGeneral = "Hola Inmosur Andina, quisiera consultar por disponibilidad de alojamientos.";
-  document.getElementById("footer-whatsapp").href = `https://wa.me/${datosInstitucionales.whatsapp}?text=${encodeURIComponent(msgGeneral)}`;
-
-  // 2. Cargar propiedades desde el JSON
   try {
     const res = await fetch("./alojamientos.json");
     const data = await res.json();
+    
+    const inst = data.institucional;
+    whatsappNumero = inst.whatsapp;
     propiedadesData = data.propiedades;
 
+    // 1. Cargar datos institucionales en el DOM de forma segura
+    document.getElementById("inst-titulo").innerText = inst.nombre;
+    document.getElementById("inst-subtitulo").innerText = inst.subtitulo;
+    document.getElementById("inst-desc").innerText = inst.descripcion;
+    document.getElementById("inst-direccion").innerText = `📍 ${inst.direccion}`;
     document.getElementById("total-propiedades").innerText = propiedadesData.length;
+
+    // 2. Cargar datos en el Footer (Dirección, Instagram, Edisur y WhatsApp)
+    document.getElementById("footer-dir").innerText = `📍 ${inst.direccion}`;
+    document.getElementById("link-instagram").href = inst.instagram;
+    document.getElementById("link-edisur").href = inst.grupo_edisur;
+
+    const msgGeneral = "Hola Inmosur Andina, quisiera consultar por disponibilidad de alojamientos.";
+    document.getElementById("footer-whatsapp").href = `https://wa.me/${whatsappNumero}?text=${encodeURIComponent(msgGeneral)}`;
+
+    // 3. Renderizar las tarjetas
     renderTarjetas(propiedadesData);
+
   } catch (error) {
     console.error("Error al cargar alojamientos.json:", error);
   }
@@ -94,8 +89,8 @@ function abrirModal(id) {
   document.getElementById("modal-capacidad").innerText = `${propiedadActual.capacidad} personas`;
   document.getElementById("modal-desc").innerText = propiedadActual.descripcion;
 
-  // Enlace directo corregido a Google Maps usando coordenadas geográficas
-  const urlGoogleMaps = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(propiedadActual.lat + ',' + propiedadActual.lng)}`;
+  // Botón Google Maps con latitud y longitud corregido
+  const urlGoogleMaps = `https://www.google.com/maps/search/?api=1&query=${propiedadActual.lat},${propiedadActual.lng}`;
   document.getElementById("modal-btn-mapa").href = urlGoogleMaps;
 
   // Renderizar servicios
@@ -104,9 +99,9 @@ function abrirModal(id) {
     .map(s => `<span class="text-xs bg-slate-100 text-slate-700 px-2.5 py-1 rounded-lg font-medium">${s}</span>`)
     .join('');
 
-  // Enlace de WhatsApp con mensaje personalizado
+  // Botón WhatsApp de reserva específica
   const mensajeReserva = `Hola Inmosur Andina, quiero realizar una reserva para el alojamiento "${propiedadActual.titulo}" (ID: ${propiedadActual.id}, Ubicación: ${propiedadActual.ubicacion}). ¿Me confirman disponibilidad?`;
-  document.getElementById("modal-btn-whatsapp").href = `https://wa.me/${datosInstitucionales.whatsapp}?text=${encodeURIComponent(mensajeReserva)}`;
+  document.getElementById("modal-btn-whatsapp").href = `https://wa.me/${whatsappNumero}?text=${encodeURIComponent(mensajeReserva)}`;
 
   document.getElementById("modal-detalle").classList.remove("hidden");
 }

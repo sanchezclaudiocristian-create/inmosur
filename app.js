@@ -1,81 +1,36 @@
-const datosInmobilia = {
-  "institucional": {
-    "nombre": "Inmosur Andina",
-    "whatsapp": "5492616253304"
-  },
-  "propiedades": [
-    {
-      "id": 1,
-      "titulo": "Cabaña Los Pinos",
-      "ubicacion": "Bariloche",
-      "capacidad": 4,
-      "precio_dia": 85,
-      "descripcion": "Hermosa cabaña de montaña rodeada de bosques nativos, totalmente equipada con hogar a leña y vistas panorámicas increíbles.",
-      "servicios": ["WiFi", "Parrilla", "Estacionamiento", "Calefacción"],
-      "fotos": ["a.jpg", "b.jpg", "c.jpg"]
-    },
-    {
-      "id": 2,
-      "titulo": "Departamento Centro Luminoso",
-      "ubicacion": "Mendoza",
-      "capacidad": 2,
-      "precio_dia": 50,
-      "descripcion": "Moderno departamento céntrico, ideal para parejas. Cercano a la zona comercial, gastronómica y circuitos vitivinícolas.",
-      "servicios": ["WiFi", "Aire Acondicionado", "Cocina equipada", "Balcón"],
-      "fotos": ["a.jpg", "b.jpg"]
-    },
-    {
-      "id": 3,
-      "titulo": "Refugio Andino Lumbreras",
-      "ubicacion": "San Martín de los Andes",
-      "capacidad": 6,
-      "precio_dia": 120,
-      "descripcion": "Amplia casa de diseño alpino con gran parque, ventanales al bosque y excelente ubicación cerca del lago Lácar.",
-      "servicios": ["WiFi", "Parrilla", "Estacionamiento", "Hogar a leña", "Cocina completa"],
-      "fotos": ["a.jpg", "b.jpg", "c.jpg", "d.jpg"]
-    },
-    {
-      "id": 4,
-      "titulo": "Loft Minimalista Vista al Valle",
-      "ubicacion": "Ushuaia",
-      "capacidad": 2,
-      "precio_dia": 95,
-      "descripcion": "Espacio moderno con diseño de autor, calefacción por suelo radiante y grandes ventanales orientados hacia el canal de Beagle.",
-      "servicios": ["WiFi", "Calefacción central", "Smart TV", "Cocina"],
-      "fotos": ["a.jpg", "b.jpg"]
-    },
-    {
-      "id": 5,
-      "titulo": "Casa de Piedra Serrana",
-      "ubicacion": "Villa General Belgrano",
-      "capacidad": 5,
-      "precio_dia": 110,
-      "descripcion": "Tradicional construcción en piedra y madera con piscina exterior, parque privado y un entorno de absoluta tranquilidad.",
-      "servicios": ["WiFi", "Piscina", "Parrilla", "Estacionamiento", "Parque"],
-      "fotos": ["a.jpg", "b.jpg", "c.jpg"]
-    }
-  ]
-};
-
 let propiedadesData = [];
 let whatsappNumero = "";
 let propiedadActual = null;
 let fotoIndiceActual = 0;
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   try {
-    whatsappNumero = datosInmobilia.institucional.whatsapp;
-    propiedadesData = datosInmobilia.propiedades;
+    const res = await fetch("./alojamientos.json");
+    const data = await res.json();
+    
+    const inst = data.institucional;
+    whatsappNumero = inst.whatsapp;
+    propiedadesData = data.propiedades;
 
+    // Cargar datos institucionales
+    document.getElementById("inst-titulo").innerText = inst.nombre;
+    document.getElementById("inst-subtitulo").innerText = inst.subtitulo;
+    document.getElementById("inst-desc").innerText = inst.descripcion;
+    document.getElementById("inst-direccion").innerText = `📍 ${inst.direccion}`;
     document.getElementById("total-propiedades").innerText = propiedadesData.length;
 
-    // Configurar enlace de WhatsApp en el pie de página
+    // Cargar footer
+    document.getElementById("footer-dir").innerText = `📍 ${inst.direccion}`;
+    document.getElementById("link-instagram").href = inst.instagram;
+    document.getElementById("link-edisur").href = inst.grupo_edisur;
+
     const msgGeneral = "Hola Inmosur Andina, quisiera consultar por disponibilidad de alojamientos.";
     document.getElementById("footer-whatsapp").href = `https://wa.me/${whatsappNumero}?text=${encodeURIComponent(msgGeneral)}`;
 
     renderTarjetas(propiedadesData);
+
   } catch (error) {
-    console.error("Error al iniciar:", error);
+    console.error("Error al cargar alojamientos.json:", error);
   }
 });
 
@@ -92,8 +47,8 @@ function renderTarjetas(lista) {
     card.onclick = () => abrirModal(item.id);
 
     card.innerHTML = `
-      <div class="relative h-52 bg-slate-100 overflow-hidden">
-        <img src="${fotoPrincipal}" alt="${item.titulo}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://via.placeholder.com/400x250?text=Inmosur+Andina'" />
+      <div class="relative h-52 bg-slate-200 overflow-hidden">
+        <img src="${fotoPrincipal}" alt="${item.titulo}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=600&q=80'" />
         <span class="absolute bottom-3 left-3 bg-slate-900/75 backdrop-blur-md text-white text-xs font-semibold px-2.5 py-1 rounded-lg">
           📍 ${item.ubicacion}
         </span>
@@ -133,11 +88,17 @@ function abrirModal(id) {
   document.getElementById("modal-capacidad").innerText = `${propiedadActual.capacidad} personas`;
   document.getElementById("modal-desc").innerText = propiedadActual.descripcion;
 
+  // Botón Google Maps con latitud y longitud
+  const urlGoogleMaps = `https://www.google.com/maps/search/?api=1&query=${propiedadActual.lat},${propiedadActual.lng}`;
+  document.getElementById("modal-btn-mapa").href = urlGoogleMaps;
+
+  // Renderizar servicios
   const serviciosContainer = document.getElementById("modal-servicios");
   serviciosContainer.innerHTML = propiedadActual.servicios
     .map(s => `<span class="text-xs bg-slate-100 text-slate-700 px-2.5 py-1 rounded-lg font-medium">${s}</span>`)
     .join('');
 
+  // Botón WhatsApp de reserva
   const mensajeReserva = `Hola Inmosur Andina, quiero realizar una reserva para el alojamiento "${propiedadActual.titulo}" (ID: ${propiedadActual.id}, Ubicación: ${propiedadActual.ubicacion}). ¿Me confirman disponibilidad?`;
   document.getElementById("modal-btn-whatsapp").href = `https://wa.me/${whatsappNumero}?text=${encodeURIComponent(mensajeReserva)}`;
 
@@ -164,7 +125,11 @@ function cambiarFoto(direccion) {
 function actualizarVistaCarrusel() {
   if (!propiedadActual) return;
   const rutaFoto = `./imagenes/${propiedadActual.id}/${propiedadActual.fotos[fotoIndiceActual]}`;
-  document.getElementById("modal-img").src = rutaFoto;
+  const modalImg = document.getElementById("modal-img");
+  modalImg.src = rutaFoto;
+  modalImg.onerror = function() {
+    this.src = 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=600&q=80';
+  };
   document.getElementById("carousel-index").innerText = fotoIndiceActual + 1;
   document.getElementById("carousel-total").innerText = propiedadActual.fotos.length;
 }

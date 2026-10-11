@@ -1,136 +1,160 @@
-let propiedadesData = [];
-let whatsappNumero = "";
-let propiedadActual = null;
-let fotoIndiceActual = 0;
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inmosur Andina - Alojamientos Temporarios</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              navy: '#0B2545',
+              terracotta: '#B46944',
+              light: '#F8FAFC'
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-brand-light text-slate-800 font-sans min-h-screen flex flex-col">
 
-document.addEventListener("DOMContentLoaded", async () => {
-  try {
-    const res = await fetch("./alojamientos.json");
-    const data = await res.json();
+  <!-- Header / Logotipo Oficial Adaptado -->
+  <header class="bg-white text-brand-navy shadow-sm border-b border-slate-200 sticky top-0 z-40">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="#" class="flex flex-col">
+        <span class="text-2xl sm:text-3xl font-black tracking-tight text-brand-navy lowercase leading-none">
+          inmosur
+        </span>
+        <span class="text-[10px] sm:text-xs font-bold tracking-[0.35em] text-brand-terracotta uppercase mt-1 self-end">
+          ANDINA
+        </span>
+      </a>
+      <span class="text-xs font-medium text-slate-500 bg-slate-100 px-3 py-1.5 rounded-full hidden sm:inline-block">
+        Alquileres Temporarios
+      </span>
+    </div>
+  </header>
+
+  <!-- Contenido Principal -->
+  <main class="max-w-6xl mx-auto px-4 py-8 flex-1 w-full space-y-8">
     
-    const inst = data.institucional;
-    whatsappNumero = inst.whatsapp;
-    propiedadesData = data.propiedades;
-
-    // 1. Cargar datos institucionales en el DOM de forma segura
-    document.getElementById("inst-titulo").innerText = inst.nombre;
-    document.getElementById("inst-subtitulo").innerText = inst.subtitulo;
-    document.getElementById("inst-desc").innerText = inst.descripcion;
-    document.getElementById("inst-direccion").innerText = `📍 ${inst.direccion}`;
-    document.getElementById("total-propiedades").innerText = propiedadesData.length;
-
-    // 2. Cargar datos en el Footer (Dirección, Instagram, Edisur y WhatsApp)
-    document.getElementById("footer-dir").innerText = `📍 ${inst.direccion}`;
-    document.getElementById("link-instagram").href = inst.instagram;
-    document.getElementById("link-edisur").href = inst.grupo_edisur;
-
-    const msgGeneral = "Hola Inmosur Andina, quisiera consultar por disponibilidad de alojamientos.";
-    document.getElementById("footer-whatsapp").href = `https://wa.me/${whatsappNumero}?text=${encodeURIComponent(msgGeneral)}`;
-
-    // 3. Renderizar las tarjetas
-    renderTarjetas(propiedadesData);
-
-  } catch (error) {
-    console.error("Error al cargar alojamientos.json:", error);
-  }
-});
-
-function renderTarjetas(lista) {
-  const container = document.getElementById("grid-alojamientos");
-  if (!container) return;
-  container.innerHTML = "";
-
-  lista.forEach(item => {
-    const fotoPrincipal = `./imagenes/${item.id}/${item.fotos[0]}`;
-
-    const card = document.createElement("div");
-    card.className = "bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col hover:shadow-md transition cursor-pointer group";
-    card.onclick = () => abrirModal(item.id);
-
-    card.innerHTML = `
-      <div class="relative h-52 bg-slate-200 overflow-hidden">
-        <img src="${fotoPrincipal}" alt="${item.titulo}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=600&q=80'" />
-        <span class="absolute bottom-3 left-3 bg-slate-900/75 backdrop-blur-md text-white text-xs font-semibold px-2.5 py-1 rounded-lg">
-          📍 ${item.ubicacion}
-        </span>
-        <span class="absolute top-3 right-3 bg-white/90 backdrop-blur-md text-slate-900 font-black text-xs px-2.5 py-1 rounded-lg shadow-sm">
-          US$${item.precio_dia} <span class="text-[10px] font-normal text-slate-500">/día</span>
-        </span>
+    <!-- Sección Institucional -->
+    <section class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+      <div class="space-y-3 max-w-2xl">
+        <h2 id="inst-titulo" class="text-2xl sm:text-3xl font-extrabold text-brand-navy">Inmosur Andina</h2>
+        <p id="inst-subtitulo" class="text-brand-terracotta font-semibold text-sm">Alojamientos & Alquileres Temporarios</p>
+        <p id="inst-desc" class="text-slate-600 text-sm leading-relaxed"></p>
+        <p id="inst-direccion" class="text-xs text-slate-500 font-medium flex items-center gap-1.5 pt-1"></p>
       </div>
+      <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center shrink-0 w-full lg:w-auto">
+        <span class="block text-2xl font-black text-brand-navy" id="total-propiedades">5</span>
+        <span class="text-[11px] font-semibold text-brand-terracotta uppercase tracking-wider">Propiedades Exclusivas</span>
+      </div>
+    </section>
+
+    <!-- Título de Sección -->
+    <div>
+      <h3 class="text-xl font-bold text-brand-navy">Nuestros Alojamientos</h3>
+      <p class="text-xs text-slate-500">Selecciona una tarjeta para ver el detalle, galería de fotos y ubicación.</p>
+    </div>
+
+    <!-- Grilla de Tarjetas -->
+    <div id="grid-alojamientos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Se carga dinámicamente -->
+    </div>
+  </main>
+
+  <!-- Footer con Redes y Contacto -->
+  <footer class="bg-brand-navy text-slate-300 py-10 px-4 border-t border-slate-800 mt-12">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-xs">
+      <div class="space-y-2">
+        <h4 class="font-bold text-white text-sm uppercase tracking-wider">Inmosur Andina</h4>
+        <p class="text-slate-400">Estilo y confort en cada destino patagónico.</p>
+        <p id="footer-dir" class="text-slate-400 pt-2"></p>
+      </div>
+      <div class="space-y-2">
+        <h4 class="font-bold text-white text-sm uppercase tracking-wider">Redes y Enlaces</h4>
+        <div class="flex flex-col space-y-2 pt-1">
+          <a id="link-instagram" href="#" target="_blank" class="hover:text-white transition flex items-center gap-2">
+            📸 Instagram Oficial (@inmosurcba)
+          </a>
+          <a id="link-edisur" href="#" target="_blank" class="hover:text-white transition flex items-center gap-2">
+            🌐 Grupo Edisur (Desarrollos Manantiales)
+          </a>
+        </div>
+      </div>
+      <div class="space-y-3">
+        <h4 class="font-bold text-white text-sm uppercase tracking-wider">Consultas y Reservas</h4>
+        <a id="footer-whatsapp" href="#" target="_blank" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 px-4 rounded-xl transition shadow">
+          💬 WhatsApp: +54 9 2616 25-3304
+        </a>
+      </div>
+    </div>
+    <div class="max-w-6xl mx-auto pt-8 mt-8 border-t border-slate-800/60 text-center text-[11px] text-slate-400">
+      <p>&copy; 2026 Inmosur Andina. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- Modal de Detalle, Carrusel y Mapa -->
+  <div id="modal-detalle" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm hidden z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl max-w-xl w-full p-5 sm:p-6 relative flex flex-col max-h-[92vh] shadow-2xl my-auto">
       
-      <div class="p-5 flex-1 flex flex-col justify-between space-y-3">
-        <div>
-          <h3 class="font-bold text-lg text-slate-900 leading-snug group-hover:text-brand-terracotta transition">${item.titulo}</h3>
-          <p class="text-xs text-slate-500 mt-1">👤 Capacidad: hasta ${item.capacidad} personas</p>
-          <p class="text-xs text-slate-600 mt-2 line-clamp-2">${item.descripcion}</p>
-        </div>
+      <button onclick="cerrarModal()" class="absolute top-4 right-4 bg-slate-100 hover:bg-slate-200 text-slate-600 w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm transition z-10">✕</button>
 
-        <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
-          <span class="text-xs font-bold text-brand-navy bg-slate-50 px-2.5 py-1 rounded-md">Ver detalle y fotos</span>
-          <span class="text-slate-400 text-sm">➔</span>
+      <!-- Carrusel de Imágenes -->
+      <div class="relative bg-slate-900 rounded-xl overflow-hidden h-64 sm:h-72 shrink-0 mb-4 flex items-center justify-center shadow-inner">
+        <img id="modal-img" src="" alt="Alojamiento" class="w-full h-full object-cover transition duration-300" />
+        
+        <button onclick="cambiarFoto(-1)" class="absolute left-2 bg-black/50 hover:bg-black/75 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm transition">❮</button>
+        <button onclick="cambiarFoto(1)" class="absolute right-2 bg-black/50 hover:bg-black/75 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm transition">❯</button>
+        
+        <div class="absolute bottom-2 right-2 bg-black/60 text-white text-[11px] px-2.5 py-1 rounded-md backdrop-blur-sm font-medium">
+          <span id="carousel-index">1</span> / <span id="carousel-total">1</span>
         </div>
       </div>
-    `;
 
-    container.appendChild(card);
-  });
-}
+      <div class="flex-1 overflow-y-auto pr-1 space-y-4">
+        <div class="flex justify-between items-start gap-2">
+          <div>
+            <h3 id="modal-titulo" class="font-bold text-xl text-brand-navy"></h3>
+            <p id="modal-ubicacion" class="text-xs font-semibold text-slate-500 mt-0.5">📍 Ubicación</p>
+          </div>
+          <div class="text-right shrink-0">
+            <span id="modal-precio" class="text-lg font-black text-brand-terracotta">US$0</span>
+            <span class="block text-[10px] text-slate-400 uppercase tracking-wide">por día</span>
+          </div>
+        </div>
 
-function abrirModal(id) {
-  propiedadActual = propiedadesData.find(p => p.id === id);
-  if (!propiedadActual) return;
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+          <span class="text-xs font-medium text-slate-600">👤 Capacidad: <strong id="modal-capacidad" class="text-slate-900">0</strong> personas</span>
+          <a id="modal-btn-mapa" href="#" target="_blank" class="text-xs font-bold text-sky-700 bg-sky-50 hover:bg-sky-100 px-3 py-1.5 rounded-lg border border-sky-200 text-center transition flex items-center justify-center gap-1">
+            🗺️ Ver en Google Maps
+          </a>
+        </div>
 
-  fotoIndiceActual = 0;
-  actualizarVistaCarrusel();
+        <p id="modal-desc" class="text-sm text-slate-600 leading-relaxed"></p>
 
-  document.getElementById("modal-titulo").innerText = propiedadActual.titulo;
-  document.getElementById("modal-ubicacion").innerText = `📍 ${propiedadActual.ubicacion}`;
-  document.getElementById("modal-precio").innerText = `US$${propiedadActual.precio_dia}`;
-  document.getElementById("modal-capacidad").innerText = `${propiedadActual.capacidad} personas`;
-  document.getElementById("modal-desc").innerText = propiedadActual.descripcion;
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Servicios incluidos</h4>
+          <div id="modal-servicios" class="flex flex-wrap gap-1.5"></div>
+        </div>
+      </div>
 
-  // Botón Google Maps con latitud y longitud corregido
-  const urlGoogleMaps = `https://www.google.com/maps/search/?api=1&query=${propiedadActual.lat},${propiedadActual.lng}`;
-  document.getElementById("modal-btn-mapa").href = urlGoogleMaps;
+      <div class="pt-4 mt-4 border-t border-slate-100 shrink-0">
+        <a id="modal-btn-whatsapp" href="#" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 px-4 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 shadow transition">
+          <span>Realizar Reserva por WhatsApp</span>
+        </a>
+      </div>
 
-  // Renderizar servicios
-  const serviciosContainer = document.getElementById("modal-servicios");
-  serviciosContainer.innerHTML = propiedadActual.servicios
-    .map(s => `<span class="text-xs bg-slate-100 text-slate-700 px-2.5 py-1 rounded-lg font-medium">${s}</span>`)
-    .join('');
+    </div>
+  </div>
 
-  // Botón WhatsApp de reserva específica
-  const mensajeReserva = `Hola Inmosur Andina, quiero realizar una reserva para el alojamiento "${propiedadActual.titulo}" (ID: ${propiedadActual.id}, Ubicación: ${propiedadActual.ubicacion}). ¿Me confirman disponibilidad?`;
-  document.getElementById("modal-btn-whatsapp").href = `https://wa.me/${whatsappNumero}?text=${encodeURIComponent(mensajeReserva)}`;
-
-  document.getElementById("modal-detalle").classList.remove("hidden");
-}
-
-function cerrarModal() {
-  document.getElementById("modal-detalle").classList.add("hidden");
-}
-
-function cambiarFoto(direccion) {
-  if (!propiedadActual) return;
-  fotoIndiceActual += direccion;
-  
-  if (fotoIndiceActual < 0) {
-    fotoIndiceActual = propiedadActual.fotos.length - 1;
-  } else if (fotoIndiceActual >= propiedadActual.fotos.length) {
-    fotoIndiceActual = 0;
-  }
-
-  actualizarVistaCarrusel();
-}
-
-function actualizarVistaCarrusel() {
-  if (!propiedadActual) return;
-  const rutaFoto = `./imagenes/${propiedadActual.id}/${propiedadActual.fotos[fotoIndiceActual]}`;
-  const modalImg = document.getElementById("modal-img");
-  modalImg.src = rutaFoto;
-  modalImg.onerror = function() {
-    this.src = 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=600&q=80';
-  };
-  document.getElementById("carousel-index").innerText = fotoIndiceActual + 1;
-  document.getElementById("carousel-total").innerText = propiedadActual.fotos.length;
-}
+  <script src="app.js"></script>
+</body>
+</html>
